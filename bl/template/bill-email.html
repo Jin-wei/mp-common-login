@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>账单日邮件内容</title>
+</head>
+<style>
+    body{
+        background: rgb(243, 243, 243);
+        font-family: 'Microsoft YaHei';
+        margin: 0;
+    }
+    .pull-left{
+        float: left;
+    }
+    .pull-right{
+        float: right;
+    }
+    .clear{
+        clear:both;
+    }
+    .monthly_bill_bk{
+        background: #ffffff;
+        width: 1000px;
+        margin: 0 auto;
+        padding: 0px;
+        min-height: 500px;
+        overflow: hidden;
+        padding-bottom: 40px;
+    }
+    .bill-email-welcome{
+        margin:18px 18px 30px 18px;
+        padding-top: 25px;
+        font-size: 16px;
+        color:#333333;
+        /*height: 80px;*/
+        width: 900px;
+    }
+    .bill-email-welcome span{
+        color: #00c0b6;
+    }
+    .bill-email-img{
+        margin: 20px 30px 0 0;
+        width:250px;
+    }
+    .bill-email-img img{
+        height: auto;
+    }
+    .bill-email-text{
+        font-size: 16px;
+        color:#333333;
+        margin:0 0 0 55px;
+        width: 630px;
+    }
+    .bill-email-text p span{
+        color: #ef7a3a;
+        line-height: 32px;
+    }
+    .bill-email-text span{
+        line-height: 32px;
+    }
+    .bill-email-text p{
+        line-height: 32px;
+        margin: 0;
+        padding: 0;
+
+    }
+    .bill-email-text a{
+        color:#75b5de;
+    }
+    .bill-email-detail{
+        font-size: 16px;
+        color:#333333;
+        margin:0;
+        width: 100%;
+        /*border:1px solid #00c0b6;*/
+        min-height: 92px;
+        overflow: hidden;
+        border-top:2px solid #00c0b6;
+    }
+    .bill-email-detail{
+        width: 100%;
+        /*border:1px solid #00c0b6;*/
+        min-height: 92px;
+        overflow: hidden;
+        border-top:2px solid #00c0b6;
+    }
+    .bill-email-detail p span{
+        color: #8e8e8e;
+
+    }
+    .bill-email-detail p{
+        padding-left: 25px;
+    }
+
+    .bill-email-detail{
+        width:960px;
+        margin: 0 auto;
+        /*border:1px solid #00c0b6;*/
+        min-height: 92px;
+        overflow: hidden;
+        border-top:2px solid #00c0b6;
+    }
+    .bill-email-content p span{
+        color: #8e8e8e;
+
+    }
+    .bill-email-detail .bill-email-content p{
+         padding-left: 10px;
+    }
+    .bill-email-title{
+        margin:0 0 10px 25px;
+        color: #333333;
+
+    }
+    .table{
+        width: 960px;
+        margin: 0 auto;
+        display: table;
+        border-collapse:collapse;
+        color: #333333;
+        font-weight: normal;
+        vertical-align: top;
+    }
+    .table thead{
+        padding: 0;
+        margin: 0;
+        height: 50px;
+        font-size: 16px;
+        width: 960px;
+        vertical-align:middle;
+
+    }
+    .table thead tr{
+        padding: 0;
+        margin: 0;
+        vertical-align:middle;
+        background: #f0fdfc;
+        height: 50px;
+        width: 960px;
+        border-bottom: 1px solid #baf8f3;
+
+    }
+    .table thead tr th{
+        padding: 8px;
+        text-align: center;
+        border:none;
+        border-bottom: 2px solid #ddd;
+        font-weight: normal;
+
+        vertical-align:middle;
+
+    }
+    .table tbody tr td{
+        text-align: center;
+        font-size: 18px;
+        /*padding: 8px;*/
+        height:53px;
+        border:none;
+        vertical-align:middle;
+        /*border-top: 1px solid #ddd;*/
+        font-weight:normal;
+
+    }
+    .table thead .noborder th{
+        border-bottom:none;
+        padding:0 8px;
+
+    }
+    .table2{
+        width: 960px;
+        margin: 0 auto;
+        display: table;
+        border-collapse:collapse;
+        color: #333333;
+        font-weight: normal;
+        vertical-align: top;
+        table-layout:fixed;
+        word-break:break-all;
+
+    }
+    .table2 thead{
+        padding: 0;
+        margin: 0;
+        height: 50px;
+        font-size: 15px;
+        width: 960px;
+        vertical-align:middle;
+
+    }
+    .table2 thead tr{
+        padding: 0;
+        margin: 0;
+        vertical-align:middle;
+        background: #00c0b6;
+        color: #ffffff;
+        height:50px;
+        width: 960px;
+        border-bottom: 1px solid #baf8f3;
+
+    }
+    .table2 thead tr th{
+        /*padding: 8px;*/
+        text-align: center;
+        border:none;
+        height:50px;
+        /*border-bottom: 1px solid #ddd;*/
+        font-weight: normal;
+        vertical-align:middle;
+        border-right:1px solid #baf4f1;
+        overflow:hidden;
+    }
+    .table2 tbody tr td{
+        text-align: center;
+        font-size: 14px;
+        /*padding: 8px;*/
+        min-height:50px;
+        height: 50px;
+        overflow: hidden;
+        border:none;
+        vertical-align:middle;
+        /*border-top: 1px solid #ddd;*/
+        font-weight:normal;
+        border-right:1px solid #baf4f1;
+        border-collapse:collapse;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        overflow:hidden;
+
+    }
+    .table2 thead{
+        border-bottom:none;
+        padding:0;
+
+    }
+    .noborder th{
+        border-bottom:none;
+        padding:0;
+    }
+    .table-thead-small{
+        font-size: 10px;
+        -webkit-transform:scale(0.9);
+        color: #8e8e8e;
+        margin-top:3px;
+        line-height: 10px;
+        padding: 0;
+    }
+    .table2-thead-small{
+        font-size: 10px;
+        -webkit-transform:scale(0.9);
+        color: #ffffff;
+        margin-top:3px;
+        line-height: 10px;
+        padding: 0;
+    }
+    .table2 .table2-noborder-right{
+        border-right:none;
+    }
+    .table2 > tbody > tr:nth-child(2n) > td, .table2 > tbody > tr:nth-child(2n) > th{
+        background: #f0fdfc;
+    }
+    .bill-email-sum{
+        position: absolute;
+        top:12px;
+        left:285px;
+
+    }
+    .bill-email-add{
+        position: absolute;
+        top:12px;
+        left:632px;
+        display: inline-block;
+
+    }
+    .bill-email-pay{
+        margin:36px 0 10px 10px;
+        font-size: 18px;
+        color: #333333;
+    }
+</style>
+<body>
+    <div class="monthly_bill_bk">
+        <table style="width: 1000px">
+            <tbody>
+                <tr>
+                    <td style="max-width: 630px">
+                        <div class="bill-email-welcome">
+                            <p>
+                                <!--尊敬的<span>某某某某某</span>客户，您好！-->
+                                箱满路货代:
+                            </p>
+                        </div>
+                            <div class="bill-email-text">
+                                <p>
+                                    感谢贵司使用箱满路综合物流平台，以下为<strong>2017年1月5日</strong>
+                                    至<strong>2017年2月4日</strong>的电子账单。本期账单金额为人民币：<strong>2200元</strong>，
+                                    最晚付款期限为<strong>2017年3月21日</strong>；应付账单总额为：<strong>12135元</strong>。请及时安排付款。
+                                </p>
+                            </div>
+                            <div class="bill-email-text">
+                                <!--<p>-->
+                                <!--您的本期应付金额人民币：134,200元。本期账单您最晚于<span>2017年2月20日</span>还款，请勿错过您的还款期限。-->
+                                <!--</p>-->
+                                <span> 如需查询账单详情，请登陆</span>
+                                <a href="http://www.xiangml.com" target="_blank">www.xiangml.com</a>
+                                <span>如有任何疑问，请拨打0532-82898228,我们将竭诚为您服务！</span>
+                            </div>
+                            <div class="bill-email-text" style="margin-bottom: 37px;">
+                            </div>
+                    </td>
+                    <td style="width:250px">
+                        <div class="bill-email-img">
+                            <img src="../../public/apidocs/images/weblogo.png" alt="">
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="clear"></div>
+        <div class="bill-email-detail">
+                <table class="table">
+                    <thead>
+                        <tr class="noborder">
+                            <th style="width:210px">
+                                <div>账单日</div>
+                                <div class="table-thead-small">Statment Date</div>
+                            </th>
+                            <th style="width:210px">
+                                <div>到期还款日</div>
+                                <div class="table-thead-small">Due Date</div>
+                            </th>
+                            <th style="width:254px">
+                                <div>当前信用额度</div>
+                                <div class="table-thead-small">Credit Limit</div>
+                            </th>
+                            <th>
+                                <div>本期账单金额</div>
+                                <div class="table-thead-small">Current Balance</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody style="word-break: break-all;word-wrap: break-word;white-space:pre-wrap">
+                        <tr>
+                            <td  style="width:210px">2016-12-21</td>
+                            <td style="width:210px">2017-1-20</td>
+                            <td style="width:254px">¥132,234</td>
+                            <td>¥34,000</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+        </div>
+        <div class="bill-email-detail" style="position: relative">
+
+                <!--<span class="bill-email-sum">=</span>-->
+                <!--<span class="bill-email-add">+</span>-->
+                <table class="table">
+                    <thead>
+                        <tr class="noborder">
+                            <th style="width:200px">
+                                <div>应付账单总额</div>
+                                <div class="table-thead-small">Current Balance</div>
+                            </th>
+                            <th style="width: 20px">
+                                <span>=</span>
+                            </th>
+                            <th style="width: 400px">
+                                <div>本期账单金额</div>
+                                <div class="table-thead-small">New Charges</div>
+                            </th>
+                            <th style="width: 20px">
+                                <span>+</span>
+                            </th>
+                            <th>
+                                <div>累计未还金额</div>
+                                <div class="table-thead-small">Outstanding Balance</div>
+                            </th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr style="word-break: break-all;word-wrap: break-word;white-space:pre-wrap">
+                            <td  style="width: 220px">¥134,2000</td>
+                            <td style="width: 20px"></td>
+                            <td style="width: 420px">¥100,000 </td>
+                            <td style="width: 20px"></td>
+                            <td>¥34,000</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+        </div>
+
+        <div class="bill-email-detail">
+            <!--<div class="bill-email-title">-->
+                <!--账务明细-->
+            <!--</div>-->
+            <table class="table2" style="margin-top: 19px">
+                <thead>
+                    <tr class="noborder">
+                        <th style="width: 35px">
+                                序号
+                        </th>
+                        <th style="width:130px">
+                            <div >工厂名称</div>
+                            <div class="table2-thead-small" >Factory Name</div>
+                        </th>
+                        <th style="width:90px">
+                            <div>提单号</div>
+                            <div class="table2-thead-small">B/L No</div>
+                        </th>
+                        <th style="width:110px">
+                            <div>箱型／箱量</div>
+                            <div class="table2-thead-small">Container Type</div>
+                        </th>
+                        <th style="width:90px">
+                            <div>金额</div>
+                            <div class="table2-thead-small">New Balance</div>
+                        </th>
+                        <th style="width:110px">
+                            <div>订单号</div>
+                            <div class="table2-thead-small">Order Number</div>
+                        </th>
+                        <th style="width:120px">
+                            <div>委托日期</div>
+                            <div  class="table2-thead-small">Commissioned Date</div>
+                        </th>
+                        <th style="width:110px">
+                            <div>部门</div>
+                            <div class="table2-thead-small">Department</div>
+                        </th>
+                        <th style="width:64px">
+                            <div>经办人</div>
+                            <div class="table2-thead-small">Operator</div>
+                        </th>
+                        <th style="" class="table2-noborder-right">
+                            <div>付款类型</div>
+                            <div class="table2-thead-small">Payment Type</div>
+                        </th>
+                    </tr>
+
+                </thead>
+                    <tbody>
+                        <tr>
+                            <td  style="width:35px;">1</td>
+                            <td style="width:130px">美森博多利(大连)科技有限公司</td>
+                            <td style="width:90px">12345556</td>
+                            <td style="width:110px">20GP*2</td>
+                            <td style="width:90px">10,0000</td>
+                            <td style="width:110px">12334444444</td>
+                            <td style="width:120px">2017/01/20</td>
+                            <td style="width:110px">市场1部</td>
+                            <td style="width:64px">张三</td>
+                            <td class="table2-noborder-right">授信月结</td>
+                        </tr>
+                        <tr>
+                            <td  style="width:35px;">1</td>
+                            <td style="width:130px">美森博多利(大连)科技有限公司</td>
+                            <td style="width:90px">12345556</td>
+                            <td style="width:110px">20GP*2</td>
+                            <td style="width:90px">10,0000</td>
+                            <td style="width:110px">12334444444</td>
+                            <td style="width:120px">2017/01/20</td>
+                            <td style="width:110px">市场1部</td>
+                            <td style="width:64px">张三</td>
+                            <td class="table2-noborder-right">授信月结</td>
+                        </tr>
+                    </tbody>
+            </table>
+        </div>
+
+        <div class="bill-email-detail">
+            <div class="bill-email-pay">
+                本期账单金额（合计）：23,330元<br/>
+                本期账单金额大写：贰万叁仟叁佰叁拾元整
+            </div>
+            <div class="bill-email-pay">
+                支付方式：您可选择线上支付，也可将款项汇入以下账户
+            </div>
+            <div class="bill-email-content">
+                <p>账户名称：青岛中外运物流有限公司</p>
+                <p>开户银行：中国银行青岛唐岛湾支行</p>
+                <p>银行账号：216904433126</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

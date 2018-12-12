@@ -1,0 +1,132 @@
+.clear{
+    clear: both;
+}
+.pull-left{
+    float: left;
+}
+.pull-right{
+    float: right;
+}
+
+.table{
+    width: 900px;
+    margin: 0 auto;
+    max-width: 100%;
+    display: table;
+    border-collapse:collapse;
+    font-size: 14px;
+    color: #333333;
+    font-weight: normal;
+    vertical-align: top;
+    word-break:break-all;
+    worder-warp:break-word;
+    white-space: pre-wrap;
+}
+.table thead{
+    padding: 0;
+    margin: 0;
+
+}
+.table thead tr{
+    padding: 0;
+    margin: 0;
+}
+.table thead tr th{
+    padding: 8px;
+    text-align: center;
+    border:none;
+    border-bottom: 2px solid #ddd;
+    font-weight: normal;
+    vertical-align: top;
+
+}
+.table tbody tr td{
+    text-align: center;
+    padding: 8px;
+    line-height: 1.42857143;
+    border:none;
+    border-top: 1px solid #ddd;
+    font-weight:normal;
+    vertical-align:top;
+}
+/*table > tbody > tr:nth-child(2n) > td, .table-striped > tbody > tr:nth-child(2n) > th {*/
+    /*background-color: #f0f0f0;*/
+/*}*/
+.monthly_bill_bk{
+    background: #ffffff;
+    width: 980px;
+    margin: 20px auto;
+    padding: 0px;
+    min-height: 500px;
+    overflow: hidden;
+    padding-bottom: 40px;
+}
+.monthly_bill_welcome{
+    /*background: #ffffff url("../images/logo2.png") no-repeat 815px 36px;*/
+    margin:0 30px 20px 50px;
+    padding-top: 25px;
+    font-size: 16px;
+    color:#333333;
+    height: 80px;
+    width: 900px;
+}
+.monthly_bill_img{
+    margin:10px 20px 0 0;
+
+}
+.monthly_bill_table1 table{
+    border:1px solid lightgrey;
+}
+.bill_content{
+    width: 900px;
+    margin: 42px auto 0 auto;
+    /*border-top:1px solid lightgrey;*/
+    /*border-bottom:1px solid lightgrey;*/
+}
+.bill_content_titile{
+
+
+}
+.bill_content_titile span{
+    display: inline-block;
+    font-size: 18px;
+    color: #333333;
+    line-height: 40px;
+    padding-left: 10px;
+
+}
+.bill_detail{
+    border-top: solid 2px #00c0b6;
+}
+.bill_detail_titile{
+    font-size: 16px;
+    color: #8e8e8e;
+    padding-left: 10px;
+    line-height: 40px;
+}
+.bill_detail_tabel table{
+    border-top:1px solid lightgrey;
+    border-bottom:1px solid lightgrey;
+}
+.bill_detail_price{
+    margin-right: 20px;
+    font-size: 16px;
+    color: #333333;
+    line-height: 40px;
+}
+
+.bill_detail_redprice{
+    display: inline-block;
+    width: 80px;
+    color:#ff7018;
+    text-align: right;
+}
+.bill_detail_total{
+    font-size: 16px;
+}
+.bill_detail_total .bill_detail_price{
+    margin-right: 20px;
+}
+.bill_total_price{
+    font-size: 18px;
+}

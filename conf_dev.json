@@ -1,0 +1,16 @@
+{
+    "apiHost":"127.0.0.1:8093",
+    "apiExternalDosUrl": "http://localhost:8080",
+    "logLevel":"DEBUG",
+    "logFileFullName":"../common-login.log",
+    "logBackups":10,
+    "logMaxSize":2048000,
+    "mqHost":"127.0.0.1",
+    "mqPort":8092,
+    "mysqlUser":"sino",
+    "mysqlPass":"trans",
+    "mysqlDB":"sin",
+    "mysqlHost":"123.57.11.150",
+    "notifyHost":"127.0.0.1"
+
+}

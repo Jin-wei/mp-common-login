@@ -1,0 +1,3171 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The documents for mission public common login api",
+    "version": "1.0.0",
+    "title": "MP common login api doc",
+    "contact": {
+      "email": "ling.xue@missionpublic.com"
+    },
+    "license": {
+      "name": "View source at github",
+      "url": "https://github.com/mpinc/common-login"
+    }
+  },
+  "host": "@@apiHost",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "admin",
+      "description": "Administrators' login ,etc.",
+      "externalDocs": {
+        "description": "common admin login",
+        "url": "@@apiHost"
+      }
+    },
+    {
+      "name": "user",
+      "description": "User Register,Login and Password",
+      "externalDocs": {
+        "description": "common user login",
+        "url": "@@apiHost"
+      }
+    },
+    {
+      "name": "token",
+      "description": "token relatives",
+      "externalDocs": {
+        "description": "common user login",
+        "url": "@@apiHost"
+      }
+    },
+    {
+      "name": "sms",
+      "description": "Send Register and Reset Password SMS",
+      "externalDocs": {
+        "description": "common user sms",
+        "url": "@@apiHost"
+      }
+    },
+    {
+      "name": "biz",
+      "description": "biz verify",
+      "externalDocs": {
+        "description": "",
+        "url": "@@apiHost"
+      }
+    },
+    {
+      "name": "driver",
+      "description": "driver management & verify",
+      "externalDocs": {
+        "description": "",
+        "url": "@@apiHost"
+      }
+    },
+    {
+      "name": "truck",
+      "description": "truck management",
+      "externalDocs": {
+        "description": "",
+        "url": "@@apiHost"
+      }
+    },
+    {
+      "name": "verifyHistory",
+      "description": "write&read verify history records",
+      "externalDocs": {
+        "description": "",
+        "url": "@@apiHost"
+      }
+    },
+    {
+      "name": "region",
+      "description": "region query",
+      "externalDocs": {
+        "description": "",
+        "url": "@@apiHost"
+      }
+    },
+    {
+      "name": "userDevice",
+      "description": "user device",
+      "externalDocs": {
+        "description": "",
+        "url": "@@apiHost"
+      }
+    },
+    {
+      "name": "appVersion",
+      "description": "app version",
+      "externalDocs": {
+        "description": "",
+        "url": "@@apiHost"
+      }
+    },
+    {
+      "name": "contract",
+      "description": "contract",
+      "externalDocs": {
+        "description": "",
+        "url": "@@apiHost"
+      }
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/adminUser": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "createLogin",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "em:phone&password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdminUser"
+            }
+          }
+        ]
+      }
+    },
+    "/admin/login": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "User Login",
+        "description": "api need email,phone or username only one",
+        "operationId": "userDoLogin",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "em:phone&password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserToken"
+            }
+          }
+        }
+      }
+    },
+    "/admin/{phone}/password": {
+      "put": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "For user modify password",
+        "description": "",
+        "operationId": "modifyPassword",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "The user phone",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "new password and original password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PhonePassword"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "User Register",
+        "description": "The email,username and phone must be unique.",
+        "operationId": "createUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User Info",
+        "description": "The email,username and phone must be unique.",
+        "operationId": "getUserInfo",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "userId",
+            "description": "",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "username",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "phone",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "wechatId",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "status ",
+            "description": "",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/{userId}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get User Info By ID",
+        "description": "The email,username and phone must be unique.",
+        "operationId": "getUserById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "update users' info",
+        "description": "",
+        "operationId": "updateUserInfo",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The user p.k.",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "user info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/biz/{bizId}": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bizId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubUser"
+            }
+          }
+        ]
+      }
+    },
+    "/department": {
+      "post": {
+        "tags": [
+          "department"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Department"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "department"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "departmentId",
+            "description": "",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "departmentName",
+            "description": "",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "User Login",
+        "description": "api need email,phone or username only one",
+        "operationId": "userDoLogin",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "em:phone&password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserToken"
+            }
+          },
+          "400": {
+            "description": "username email or phone has been registered"
+          }
+        }
+      }
+    },
+    "/wechatLogin": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Wechat Login",
+        "description": "api need email,phone or username only one",
+        "operationId": "wechatDoLogin",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "em:phone&password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserToken"
+            }
+          },
+          "400": {
+            "description": "username email or phone has been registered"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "User Logout",
+        "description": "api need email,phone or username only one",
+        "operationId": "userDoLogout",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "sessionToken only",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/userToken": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "check user auth-token",
+        "description": "",
+        "operationId": "createUsersWithListInput",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "refer to common-mp-util",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserToken"
+            }
+          },
+          "400": {
+            "description": "access token error"
+          }
+        }
+      }
+    },
+    "/user/{userId}/token/{token}": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "For user change old token on  web or mobile",
+        "description": "",
+        "operationId": "refreshToken",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The user unique id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "token",
+            "in": "path",
+            "description": "The user access token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserToken"
+            }
+          },
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "access token error"
+          }
+        }
+      }
+    },
+    "/user/{oriPhone}/phone": {
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "For user modify phone",
+        "description": "",
+        "operationId": "modifyPassword",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "oriPhone",
+            "in": "path",
+            "description": "The user phone",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "new phone and code",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserPhone"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/{phone}/password": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "For user reset password by phone code",
+        "description": "",
+        "operationId": "resetPassword",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "The user phone",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The user password and sms code",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PhonePassword"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "For user modify password",
+        "description": "",
+        "operationId": "modifyPassword",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "The user phone",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "new password and original password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PhonePassword"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/{phone}/active/{active}": {
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "update users' active status",
+        "description": "",
+        "operationId": "updateUserActive",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "The user phone",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "active",
+            "in": "path",
+            "description": "User's active status(Active/Inactive)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/{userId}/type/{type}": {
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "update users' active status",
+        "description": "",
+        "operationId": "updateUserActive",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The user p.k.",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": " USER_TYPE_NOT_VERIFIED = 1; //已注册但未通过验证 USER_TYPE_OWNER = 2; //货主 USER_TYPE_AGENCY = 3; //货代 USER_TYPE_SHIPPING = 4; //船公司USER_TYPE_TRUCK_TEAM = 5; //车队USER_TYPE_DRIVER = 6; //司机USER_TYPE_ADMIN = 9; //后台管理员",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/sms/{phone}/sign": {
+      "post": {
+        "tags": [
+          "sms"
+        ],
+        "summary": "send sms to user with reset password code",
+        "description": "",
+        "operationId": "sendPasswordSms",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "The user phone",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/sms/{phone}/password": {
+      "post": {
+        "tags": [
+          "sms"
+        ],
+        "summary": "For user reset password by phone code",
+        "description": "",
+        "operationId": "resetPassword",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "The user phone",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserPhonePassword"
+            }
+          }
+        }
+      }
+    },
+    "/sms/{phone}/reset": {
+      "post": {
+        "tags": [
+          "sms"
+        ],
+        "summary": "For user reset phone by phone code",
+        "description": "",
+        "operationId": "modifyPhone",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "The user phone",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserPhonePassword"
+            }
+          }
+        }
+      }
+    },
+    "/sms/{phone}/signSubUser": {
+      "post": {
+        "tags": [
+          "sms"
+        ],
+        "summary": "send sms to user with reset password code",
+        "description": "",
+        "operationId": "sendPasswordSms",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "The user phone",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/biz": {
+      "get": {
+        "tags": [
+          "biz"
+        ],
+        "summary": "view biz info of a user",
+        "description": "",
+        "operationId": "getBiz",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bizId",
+            "in": "query",
+            "description": "bizId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "userId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "biz name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "1-货主 2-货代 3-船公司 4-车队",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "BIZ_STATUS_FORBIDDEN = 0 BIZ_STATUS_VERIFIED_NO =1 BIZ_STATUS_VERIFIED =9 ",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "page params",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "page params",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Biz"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "biz"
+        ],
+        "summary": "First step to verify a user",
+        "description": "",
+        "operationId": "addBiz",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "biz info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Biz"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/bizVerify": {
+      "post": {
+        "tags": [
+          "biz"
+        ],
+        "summary": "Second step to verify a user",
+        "description": "",
+        "operationId": "addBizVerify",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "bizVerify info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BizVerify"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/bizAndVerify": {
+      "get": {
+        "tags": [
+          "biz"
+        ],
+        "summary": "view biz and biz-verify info of a user",
+        "description": "",
+        "operationId": "getBizAndVerify",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bizId",
+            "in": "query",
+            "description": "bizVerifyId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "userId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userName",
+            "in": "query",
+            "description": "userName",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "name(fuzzy search)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "operator",
+            "in": "query",
+            "description": "operator(姓名,fuzzy search)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "description": "phone(fuzzy search)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "1-货主 2-货代 3-船公司 4-车队",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "BIZ_VERIFY_STATUS_PENDING = 1;BIZ_VERIFY_REJECTED= 2;BIZ_VERIFY_VERIFIED = 9;",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "yyyy-MM-dd(append 00:00:00 automatically)",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "yyyy-MM-dd(append 23:59:59 automatically)",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "biCreatedOnStart",
+            "in": "query",
+            "description": "yyyy-MM-dd(append 00:00:00 automatically)",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "biCreatedOnEnd",
+            "in": "query",
+            "description": "yyyy-MM-dd(append 23:59:59 automatically)",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "bvCreatedOnStart",
+            "in": "query",
+            "description": "yyyy-MM-dd(append 00:00:00 automatically)",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "bvCreatedOnEnd",
+            "in": "query",
+            "description": "yyyy-MM-dd(append 23:59:59 automatically)",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "page params",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "page params",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/biz/{bizId}": {
+      "put": {
+        "tags": [
+          "biz"
+        ],
+        "summary": "update biz info of a user",
+        "description": "",
+        "operationId": "updateBiz",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bizId",
+            "in": "path",
+            "description": "biz info",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "biz info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Biz"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Biz"
+            }
+          }
+        }
+      }
+    },
+    "/biz/{bizId}/status/{status}": {
+      "put": {
+        "tags": [
+          "biz"
+        ],
+        "summary": "change a biz's status",
+        "description": "",
+        "operationId": "updateBizStatus",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bizId",
+            "in": "path",
+            "description": "bizId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "BIZ_STATUS_FORBIDDEN = 0;BIZ_STATUS_VERIFIED_NO =1 ;BIZ_STATUS_VERIFIED =9 ;",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/bizVerify/{bizVerifyId}": {
+      "put": {
+        "tags": [
+          "biz"
+        ],
+        "summary": "view biz verify info of a user",
+        "description": "",
+        "operationId": "updateBizVerify",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bizVerifyId",
+            "in": "path",
+            "description": "bizVerify info",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "bizVerify info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BizVerify"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/BizVerify"
+            }
+          }
+        }
+      }
+    },
+    "/bizVerify/{bizVerifyId}/status/{status}": {
+      "put": {
+        "tags": [
+          "biz"
+        ],
+        "summary": "change a BizVerify's status",
+        "description": "",
+        "operationId": "updateBizVerifyStatus",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bizVerifyId",
+            "in": "path",
+            "description": "bizVerifyId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "BIZ_VERIFY_STATUS_PENDING = 1;BIZ_VERIFY_REJECTED= 2;BIZ_VERIFY_VERIFIED = 9;",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/biz/{bizId}/bizTruckRel/{truckBizId}": {
+      "post": {
+        "tags": [
+          "biz"
+        ],
+        "summary": "create a truck biz rel",
+        "description": "",
+        "operationId": "addBizTruckRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bizId",
+            "in": "path",
+            "description": "biz id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "truckBizId",
+            "in": "path",
+            "description": "truck-biz id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "biz"
+        ],
+        "summary": "delete a truck biz rel",
+        "description": "",
+        "operationId": "deleteBizTruckRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bizId",
+            "in": "path",
+            "description": "biz id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "truckBizId",
+            "in": "path",
+            "description": "truck-biz id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/biz/{bizId}/truckTeam": {
+      "get": {
+        "tags": [
+          "biz"
+        ],
+        "summary": "view truck team info of a biz",
+        "description": "",
+        "operationId": "getBizTruckTeam",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bizId",
+            "in": "path",
+            "description": "bizId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/checkLicNum": {
+      "get": {
+        "tags": [
+          "biz"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bizLicNum",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Biz"
+            }
+          }
+        }
+      }
+    },
+    "/driver": {
+      "post": {
+        "tags": [
+          "driver"
+        ],
+        "summary": "create a driver",
+        "description": "",
+        "operationId": "addDriver",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "driver info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Driver"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "driver"
+        ],
+        "summary": "view drivers",
+        "description": "",
+        "operationId": "getDriver",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "driverId",
+            "in": "query",
+            "description": "driverId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "userId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "signed",
+            "in": "query",
+            "description": "1:userId is not null; 0:userId is null",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "bizId",
+            "in": "query",
+            "description": "bizId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "driver name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "truckId",
+            "in": "query",
+            "description": "driver truck code",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "licNum",
+            "in": "query",
+            "description": "driver truck license number",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "description": "driver's phone number",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "(split with \",\") DRIVER_STATUS_FORBIDDEN = 0;DRIVER_STATUS_PENDING =1 ;DRIVER_STATUS_REJECKED = 2;DRIVER_STATUS_PAUSED= 3;DRIVER_STATUS_VERIFIED =9 ;",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "description": "DRIVER_STATUS_ACTIVE  = 1 ;DRIVER_STATUS_INACTIVE  = 0 ;",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "yyyy-MM-dd",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "yyyy-MM-dd",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "createdOnStart",
+            "in": "query",
+            "description": "yyyy-MM-dd",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "createdOnEnd",
+            "in": "query",
+            "description": "yyyy-MM-dd",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "page params",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "page params",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Driver"
+            }
+          }
+        }
+      }
+    },
+    "/driver/{driverId}": {
+      "put": {
+        "tags": [
+          "driver"
+        ],
+        "summary": "update a driver",
+        "description": "",
+        "operationId": "updateDriver",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "driverId",
+            "in": "path",
+            "description": "driver info",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "driver info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Driver"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/driver/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "User Login",
+        "description": "api need email,phone or username only one",
+        "operationId": "userDoLogin",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "em:phone&password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserToken"
+            }
+          },
+          "400": {
+            "description": "username email or phone has been registered"
+          }
+        }
+      }
+    },
+    "/driverUser": {
+      "post": {
+        "tags": [
+          "driver"
+        ],
+        "summary": "register a driver",
+        "description": "",
+        "operationId": "driverRegister",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "driver info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DriverRegister"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/driver/{driverId}/status/{status}": {
+      "put": {
+        "tags": [
+          "driver"
+        ],
+        "summary": "change a driver's status",
+        "description": "",
+        "operationId": "updateDriverStatus",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "driverId",
+            "in": "path",
+            "description": "driverId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "DRIVER_STATUS_FORBIDDEN = 0;DRIVER_STATUS_PENDING =1 ;DRIVER_STATUS_REJECKED = 2;DRIVER_STATUS_PAUSED= 3;DRIVER_STATUS_VERIFIED =9 ",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/driver/{driverId}/active/{active}": {
+      "put": {
+        "tags": [
+          "driver"
+        ],
+        "summary": "change a driver's active status",
+        "description": "",
+        "operationId": "updateDriverActive",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "driverId",
+            "in": "path",
+            "description": "driverId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "active",
+            "in": "path",
+            "description": "DRIVER_STATUS_ACTIVE  = 1 ;DRIVER_STATUS_INACTIVE  = 0 ;",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/driver/{bizId}/count": {
+      "get": {
+        "tags": [
+          "driver"
+        ],
+        "summary": "get drivers' amount by biz",
+        "description": "",
+        "operationId": "getDriverCountByBiz",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bizId",
+            "in": "path",
+            "description": "biz id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/truck": {
+      "post": {
+        "tags": [
+          "truck"
+        ],
+        "summary": "create a truck",
+        "description": "",
+        "operationId": "addTruck",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "truck info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Truck"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "truck"
+        ],
+        "summary": "view truck",
+        "description": "",
+        "operationId": "getTruck",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "truckId",
+            "in": "query",
+            "description": "truckId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "userId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "bizId",
+            "in": "query",
+            "description": "bizId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "1-自有 2-挂靠",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "ownerName",
+            "in": "query",
+            "description": "ownerName",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ownerPhone",
+            "in": "query",
+            "description": "ownerPhone",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ownerIdNum",
+            "in": "query",
+            "description": "ownerIdNum",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "truckNum",
+            "in": "query",
+            "description": "truckNum",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "truckLicNum",
+            "in": "query",
+            "description": "truckLicNum",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "trailerNum",
+            "in": "query",
+            "description": "trailerNum",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "(split with \",\") TRUCK_STATUS_FORBIDDEN = 0;TRUCK_STATUS_PENDING =1 ;TRUCK_STATUS_REJECKED = 2;TRUCK_STATUS_PAUSED = 3;TRUCK_STATUS_VERIFIED =9 ;",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "description": "TRUCK_STATUS_ACTIVE  = 1 ;TRUCK_STATUS_INACTIVE  = 0 ;",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "yyyy-MM-dd",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "yyyy-MM-dd",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "page params",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "page params",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Truck"
+            }
+          }
+        }
+      }
+    },
+    "/truck/{truckId}": {
+      "put": {
+        "tags": [
+          "truck"
+        ],
+        "summary": "update a truck",
+        "description": "",
+        "operationId": "updateTruck",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "truckId",
+            "in": "path",
+            "description": "truck info",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "truck info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Truck"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/truck/{truckId}/status/{status}": {
+      "put": {
+        "tags": [
+          "truck"
+        ],
+        "summary": "change a truck's status",
+        "description": "",
+        "operationId": "updateTruckStatus",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "truckId",
+            "in": "path",
+            "description": "truckId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "TRUCK_STATUS_FORBIDDEN = 0;TRUCK_STATUS_PENDING =1 ;TRUCK_STATUS_REJECKED = 2;TRUCK_STATUS_PAUSED = 3;TRUCK_STATUS_VERIFIED =9 ;",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/truck/{truckId}/active/{active}": {
+      "put": {
+        "tags": [
+          "truck"
+        ],
+        "summary": "change a truck's active status",
+        "description": "",
+        "operationId": "updateTruckActive",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "truckId",
+            "in": "path",
+            "description": "truckId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "active",
+            "in": "path",
+            "description": "TRUCK_STATUS_ACTIVE  = 1 ;var TRUCK_STATUS_INACTIVE  = 0 ;",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/truck/{bizId}/count": {
+      "get": {
+        "tags": [
+          "truck"
+        ],
+        "summary": "get trucks' amount by biz",
+        "description": "",
+        "operationId": "getTruckCountByBiz",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bizId",
+            "in": "path",
+            "description": "biz id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/verifyHistory": {
+      "post": {
+        "tags": [
+          "verifyHistory"
+        ],
+        "summary": "add a verify history record",
+        "description": "",
+        "operationId": "addVerifyHistory",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "(1)biz_verify's id(2)VERIFY_HIS_TYPE_BIZ = 1; VERIFY_HIS_TYPE_TRUCK = 2 ;VERIFY_HIS_TYPE_DRIVER = 3;(3)rejection reason(4)VERIFY_HIS_STATUS_SUCCESS = 1;VERIFY_HIS_STATUS_FAILED = 0;",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VerifyHistory"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "verifyHistory"
+        ],
+        "summary": "read verify history records",
+        "description": "",
+        "operationId": "getVerifyHistory",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "verifyId",
+            "in": "query",
+            "description": "biz_verify's id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "verifyType",
+            "in": "query",
+            "description": "VERIFY_HIS_TYPE_BIZ = 1; VERIFY_HIS_TYPE_TRUCK = 2 ;VERIFY_HIS_TYPE_DRIVER = 3;",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "yyyy-MM-dd",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "yyyy-MM-dd",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "page params",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "page params",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/VerifyHistory"
+            }
+          }
+        }
+      }
+    },
+    "/region": {
+      "get": {
+        "tags": [
+          "region"
+        ],
+        "summary": "get a region",
+        "description": "",
+        "operationId": "getUserGroup",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "query",
+            "description": "region's id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/region/levelRegion": {
+      "get": {
+        "tags": [
+          "region"
+        ],
+        "summary": "get a region",
+        "description": "",
+        "operationId": "getLevelRegion",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "regionId",
+            "in": "query",
+            "description": "region's id",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "regionName",
+            "in": "query",
+            "description": "region's name",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/region/parent": {
+      "get": {
+        "tags": [
+          "region"
+        ],
+        "summary": "get a region",
+        "description": "",
+        "operationId": "getUserGroup",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/appVersion": {
+      "get": {
+        "tags": [
+          "appVersion"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "getAppVersion",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "appType",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "appVersionName",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "appVersion"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "createAppVersion",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AppVersion"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/userDevice": {
+      "get": {
+        "tags": [
+          "userDevice"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "getUserDevice",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "deviceToken",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "deviceType",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "deviceAccount",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "soundType",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "userDevice"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "createUserDevice",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserDevice"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/userDevice/{userId}/deviceToken/{deviceToken}": {
+      "delete": {
+        "tags": [
+          "userDevice"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "deleteUserDevice",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "deviceToken",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/contract/truck/{bizId}": {
+      "get": {
+        "tags": [
+          "contract"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "getUserDevice",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bizId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "integer"
+          }
+        ]
+      }
+    },
+    "/contract/agent/{bizId}": {
+      "get": {
+        "tags": [
+          "contract"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "getUserDevice",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bizId",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "integer"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Captcha": {
+      "type": "object",
+      "required": [
+        "captcha"
+      ],
+      "properties": {
+        "captcha": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Captcha"
+      }
+    },
+    "UserPhone": {
+      "type": "object",
+      "required": [
+        "newPhone",
+        "code"
+      ],
+      "properties": {
+        "newPhone": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        }
+      }
+    },
+    "PhonePassword": {
+      "type": "object",
+      "required": [
+        "code"
+      ],
+      "properties": {
+        "oriPswd": {
+          "type": "string"
+        },
+        "newPswd": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        }
+      }
+    },
+    "AdminUser": {
+      "type": "object",
+      "required": [
+      ],
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "adminType": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "adminUser"
+      }
+    },
+    "User": {
+      "type": "object",
+      "required": [
+        "password",
+        "code",
+        "type"
+      ],
+      "properties": {
+        "userId": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "userStatus": {
+          "type": "integer"
+        },
+        "wechatId": {
+          "type": "string"
+        },
+        "wechatStatus": {
+          "type": "integer"
+        },
+        "gender": {
+          "type": "integer"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "zipcode": {
+          "type": "integer"
+        },
+        "created_on": {
+          "type": "integer"
+        },
+        "updated_on": {
+          "type": "integer"
+        },
+        "last_login_on": {
+          "type": "integer"
+        },
+        "code": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer"
+        },
+        "sessionToken": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "UserGroup": {
+      "type": "object",
+      "required": [
+        "groupName",
+        "uniquemember"
+      ],
+      "properties": {
+        "groupName": {
+          "type": "string"
+        },
+        "uniquemember": {
+          "type": "array",
+          "items": "string"
+        }
+      },
+      "xml": {
+        "name": "UserGroup"
+      }
+    },
+    "UserToken": {
+      "type": "object",
+      "required": [
+        "userId"
+      ],
+      "properties": {
+        "userId": {
+          "type": "integer"
+        },
+        "auth-token": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "UserToken"
+      }
+    },
+    "UserPhonePassword": {
+      "type": "object",
+      "required": [
+        "code",
+        "password"
+      ],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "UserPhonePassword"
+      }
+    },
+    "SubUser": {
+      "type": "object",
+      "required": [
+      ],
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "bizId": {
+          "type": "integer"
+        },
+        "bizName": {
+          "type": "string"
+        },
+        "departmentId": {
+          "type": "integer"
+        },
+        "code": {
+          "type": "string"
+        },
+        "subType": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "SubUser"
+      }
+    },
+    "Department": {
+      "type": "object",
+      "required": [
+      ],
+      "properties": {
+        "departmentName": {
+          "type": "string"
+        }
+      }
+    },
+    "Biz": {
+      "type": "object",
+      "required": [
+        "userId",
+        "name",
+        "operator",
+        "phone",
+        "zipcode",
+        "address"
+      ],
+      "properties": {
+        "userId": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "zipcode": {
+          "type": "integer"
+        },
+        "address": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "Biz"
+      }
+    },
+    "BizVerify": {
+      "type": "object",
+      "required": [
+        "userId",
+        "bizId",
+        "bizLicImgUrl",
+        "orgLicImgUrl",
+        "taxLicImgUrl",
+        "bankLicImgUrl",
+        "tansLicImgUrl",
+        "ownerLicImgUrl1",
+        "ownerLicImgUrl2",
+        "remark",
+        "adminId"
+      ],
+      "properties": {
+        "userId": {
+          "type": "integer"
+        },
+        "bizId": {
+          "type": "integer"
+        },
+        "bizLicImgUrl": {
+          "type": "string"
+        },
+        "bizLicNum": {
+          "type": "string"
+        },
+        "orgLicImgUrl": {
+          "type": "string"
+        },
+        "orgLicNum": {
+          "type": "string"
+        },
+        "taxLicImgUrl": {
+          "type": "string"
+        },
+        "taxLicNum": {
+          "type": "string"
+        },
+        "bankLicImgUrl": {
+          "type": "string"
+        },
+        "bankLicNum": {
+          "type": "string"
+        },
+        "bankName": {
+          "type": "string"
+        },
+        "transLicImgUrl": {
+          "type": "string"
+        },
+        "transLicNum": {
+          "type": "string"
+        },
+        "ownerLicImgUrl1": {
+          "type": "string"
+        },
+        "ownerLicImgUrl2": {
+          "type": "string"
+        },
+        "ownerLicNum": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "adminId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "BizVerify"
+      }
+    },
+    "Driver": {
+      "type": "object",
+      "required": [
+        "bizId",
+        "name",
+        "gender",
+        "phone",
+        "truckId",
+        "resZipcode",
+        "resAddress",
+        "licZipcode",
+        "licType",
+        "licDate",
+        "licImgUrl",
+        "licNum",
+        "idImgUrl1",
+        "idImgUrl2",
+        "idNum",
+        "remark",
+        "adminId"
+      ],
+      "properties": {
+        "bizId": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "integer"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "truckId": {
+          "type": "integer"
+        },
+        "resZipcode": {
+          "type": "integer"
+        },
+        "resAddress": {
+          "type": "string"
+        },
+        "licZipcode": {
+          "type": "integer"
+        },
+        "licType": {
+          "type": "string"
+        },
+        "licDate": {
+          "type": "string"
+        },
+        "licImgUrl": {
+          "type": "string"
+        },
+        "licNum": {
+          "type": "string"
+        },
+        "idImgUrl1": {
+          "type": "string"
+        },
+        "idImgUrl2": {
+          "type": "string"
+        },
+        "idNum": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "adminId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "Driver"
+      }
+    },
+    "DriverRegister": {
+      "type": "object",
+      "required": [
+        "phone",
+        "password",
+        "code",
+        "referId"
+      ],
+      "properties": {
+        "phone": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "referId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "DriverDriverRegister"
+      }
+    },
+    "Truck": {
+      "type": "object",
+      "required": [
+        "userId",
+        "bizId",
+        "ownerName",
+        "ownerPhone",
+        "ownerIdNum",
+        "ownerGender",
+        "truckNum",
+        "truckLicNum",
+        "trailerNum",
+        "trailerLicNum",
+        "licZipcode",
+        "trailerLicZipcode",
+        "truckLicImgUrl",
+        "trailerLicImgUrl",
+        "truckLicExpired",
+        "trailerLicExpired",
+        "insurance1ImgUrl",
+        "insurance2ImgUrl",
+        "insurance3ImgUrl",
+        "remark",
+        "adminId"
+      ],
+      "properties": {
+        "userId": {
+          "type": "integer"
+        },
+        "bizId": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "integer"
+        },
+        "ownerName": {
+          "type": "string"
+        },
+        "ownerPhone": {
+          "type": "string"
+        },
+        "ownerIdNum": {
+          "type": "string"
+        },
+        "ownerGender": {
+          "type": "integer"
+        },
+        "truckNum": {
+          "type": "string"
+        },
+        "truckLicNum": {
+          "type": "string"
+        },
+        "trailerNum": {
+          "type": "string"
+        },
+        "trailerLicNum": {
+          "type": "string"
+        },
+        "licZipcode": {
+          "type": "integer"
+        },
+        "trailerLicZipcode": {
+          "type": "integer"
+        },
+        "truckLicImgUrl": {
+          "type": "string"
+        },
+        "trailerLicImgUrl": {
+          "type": "string"
+        },
+        "truckLicExpired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "trailerLicExpired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "insurance1ImgUrl": {
+          "type": "string"
+        },
+        "insurance2ImgUrl": {
+          "type": "string"
+        },
+        "insurance3ImgUrl": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "adminId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "Truck"
+      }
+    },
+    "BizTruckRel": {
+      "type": "object",
+      "required": [
+        "bizId",
+        "truckBizId"
+      ],
+      "properties": {
+        "bizId": {
+          "type": "integer"
+        },
+        "truckBizId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "BizTruckRel"
+      }
+    },
+    "VerifyHistory": {
+      "type": "object",
+      "required": [
+        "verifyId",
+        "verifyType",
+        "remark",
+        "verifyStatus",
+        "adminId"
+      ],
+      "properties": {
+        "verifyId": {
+          "type": "integer"
+        },
+        "verifyType": {
+          "type": "integer"
+        },
+        "verifyStatus": {
+          "type": "integer"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "adminId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "VerifyHistory"
+      }
+    },
+    "AppVersion": {
+      "type": "object",
+      "properties": {
+        "appType": {
+          "type": "integer"
+        },
+        "appVersionName": {
+          "type": "string"
+        },
+        "updateType": {
+          "type": "integer"
+        },
+        "appUrl": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "imgUrl": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "AppVersion"
+      }
+    },
+    "UserDevice": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer"
+        },
+        "deviceToken": {
+          "type": "string"
+        },
+        "deviceType": {
+          "type": "integer"
+        },
+        "deviceAccount": {
+          "type": "string"
+        },
+        "soundType": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "UserDevice"
+      }
+    }
+  }
+}
